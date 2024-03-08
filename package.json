@@ -1,0 +1,41 @@
+{
+  "name": "fastify-mailer-provider",
+  "version": "0.1.0",
+  "description": "This module provides a way to send email using nodemailer.",
+  "main": "index.js",
+  "scripts": {
+    "coverage": "npm run unit -- --coverage-report=lcovonly",
+    "lint": "standard | snazzy",
+    "lint:fix": "standard --fix | snazzy",
+    "test": "npm run lint && npm run unit",
+    "test:ci": "npm run lint && npm run coverage",
+    "unit": "tap -J \"test/*.test.js\"",
+    "unit:report": "npm run unit -- --coverage-report=html",
+    "unit:verbose": "npm run unit -- -Rspec"
+  },
+  "keywords": [
+    "nodemailer",
+    "email",
+    "mail"
+  ],
+  "bugs": {
+    "url": "https://github.com/leandroandrade/fastify-mailer-provider/issues"
+  },
+  "author": {
+    "name": "Leandro Andrade",
+    "email": "leandro.andrade2588@gmail.com",
+    "url": "https://github.com/leandroandrade"
+  },
+  "homepage": "https://github.com/leandroandrade/fastify-mailer-provider#readme",
+  "license": "MIT",
+  "dependencies": {
+    "fastify-plugin": "^4.5.1",
+    "nodemailer": "^6.9.11"
+  },
+  "devDependencies": {
+    "fastify": "^4.26.2",
+    "snazzy": "^9.0.0",
+    "standard": "^17.1.0",
+    "tap": "^16.3.10"
+  }
+}

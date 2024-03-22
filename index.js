@@ -1,7 +1,7 @@
 const fp = require('fastify-plugin')
 const nodemailer = require('nodemailer')
 
-async function fastifyMailer (fastify, options) {
+async function fastifyMailerProvider (fastify, options) {
   const { provider } = options
 
   if (provider && typeof provider !== 'string') {
@@ -29,7 +29,10 @@ async function fastifyMailer (fastify, options) {
   }
 }
 
-module.exports = fp(fastifyMailer, {
+module.exports = fp(fastifyMailerProvider, {
   fastify: '4.x',
   name: 'fastify-mailer-provider'
 })
+
+module.exports.default = fastifyMailerProvider
+module.exports.fastifyMailerProvider = fastifyMailerProvider

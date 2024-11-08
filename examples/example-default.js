@@ -1,22 +1,21 @@
 const fastify = require('fastify')()
 
-fastify.register(require('./'), {
-  provider: 'sendgrid',
+fastify.register(require('../index'), {
   pool: true,
-  host: 'smtp.example.com',
-  port: 465,
-  secure: true,
+  host: 'localhost',
+  from: 'noreply@email.com',
+  port: 1025,
   auth: {
-    user: 'user',
-    pass: 'pass'
+    user: '',
+    pass: ''
   }
 })
 
 fastify.get('/sendmail/:email', async (req, reply) => {
   const { email } = req.params
 
-  await fastify.mailer.sendgrid.sendMail({
-    from: 'sender@example.com',
+  await fastify.mailer.sendMail({
+    from: fastify.mailer.from,
     to: email,
     subject: 'foo',
     text: 'bar'

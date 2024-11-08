@@ -1,0 +1,18 @@
+services:
+  mailhog:
+    platform: linux/amd64 # when using apple silicon chips
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    restart: always
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # WebUI
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '256M'
+
+networks:
+  default:
+    driver: bridge

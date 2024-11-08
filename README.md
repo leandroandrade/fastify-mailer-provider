@@ -78,6 +78,79 @@ fastify.listen({ port: 3000 }, err => {
 })
 ```
 
+You can also set a _from_ with an email provider:
+```js
+const fastify = require('fastify')()
+
+fastify.register(require('fastify-mailer-provider'), {
+    provider: 'aws', // using aws to send email
+    from: 'noreply@email.com',
+    pool: true,
+    host: 'smtp.example.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'username',
+        pass: 'password'
+    }
+})
+
+
+fastify.get('/sendmail/:email', async (req, reply) => {
+    const {email} = req.params
+
+    await fastify.mailer.aws.sendMail({
+        from: fastify.mailer.aws.from,
+        to: email,
+        subject: 'foo',
+        text: 'bar'
+    })
+    return reply.send({
+        provider: fastify.mailer.aws.provider // { provider: 'aws' }
+    })
+})
+
+fastify.listen({ port: 3000 }, err => {
+    if (err) throw err
+})
+```
+
+You can also set a _from_ with a default provider:
+```js
+const fastify = require('fastify')()
+
+fastify.register(require('fastify-mailer-provider'), {
+    from: 'noreply@email.com',
+    pool: true,
+    host: 'smtp.example.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'username',
+        pass: 'password'
+    }
+})
+
+
+fastify.get('/sendmail/:email', async (req, reply) => {
+    const {email} = req.params
+
+    await fastify.mailer.aws.sendMail({
+        from: fastify.mailer.from,
+        to: email,
+        subject: 'foo',
+        text: 'bar'
+    })
+    return reply.send({
+        provider: fastify.mailer.aws.provider // { provider: 'aws' }
+    })
+})
+
+fastify.listen({ port: 3000 }, err => {
+    if (err) throw err
+})
+```
+
 You can also set multiply an email providers:
 ```js
 const fastify = require('fastify')()
